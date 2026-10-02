@@ -2,7 +2,7 @@
 
 ## 1. Eesmärk ja ulatus
 
-Project Browser on Ubuntu serveris töötav iseseisev veebirakendus, mille abil saab brauseris enne Git push'i **ainult lugemiseks** vaadata serveris olevaid projektikatalooge, nende faile ja Git-metainfot.
+Project Browser on Ubuntu serveris töötav iseseisev veebirakendus, mille abil saab brauseris **ainult lugemiseks** vaadata serveris olevaid projektikatalooge ja nende faile.
 
 Rakenduse eesmärk on toetada töövoogu:
 
@@ -16,7 +16,11 @@ kui tulemus sobib
 git commit ja push tehakse eraldi töövoos
 ```
 
-Rakendus ei ole IDE ega Git-klient. See ei sõltu teiste samas serveris asuvate rakenduste koodist, andmebaasist ega kasutajamudelist.
+Rakendus asendab kaugserveris projekti sirvimiseks inimese kohaliku arvuti failibrauserit ning failidesse sisse vaatamiseks kasutatavat lihtsat tekstivaadet. Kõiki lubatud faile peab saama sirvida ja avada sõltumata sellest, kas Git neid jälgib, need on untracked või Gitist ignoreeritud.
+
+Kataloogipuu peab aitama kasutajal kiiresti leida, millistes kataloogides vajalikud failid asuvad. See võimaldab agentidele antavates promptides viidata täpselt õigetele projektisisestele failidele ja kataloogidele.
+
+Rakendus ei ole IDE ega alternatiivne Git-klient. Git status, aktiivne branch ja viimase commiti info on projekti ülevaates ainult lisainfo. Rakendus ei sõltu teiste samas serveris asuvate rakenduste koodist, andmebaasist ega kasutajamudelist.
 
 ## 2. Keel ja märgistik
 
@@ -160,4 +164,4 @@ projects:
 
 Esimene töötav versioon sisaldab Docker-konteinerit, FastAPI backend'i, automaatset repo-avastust, projekti ülevaadet, Git infot, failide sirvimist ja toetusvorme, tundlike failide kaitset, Google'i sisselogimist, projektipõhist ACL-i, adminiõigust, read-only failisüsteemi, `funo_net` integratsiooni ning `/projects/` reverse proxy tuge.
 
-Esimeses versioonis ei tehta Git commit'i, push'i, pull'i, branch'i vahetamist, failide muutmist, üleslaadimist ega kustutamist, GitHub API integratsiooni, andmebaasi ega keerukat kasutajahaldusliidest.
+Esimeses versioonis ei tehta Git commit'i, push'i, pull'i, branch'i vahetamist, failide muutmist, üleslaadimist ega kustutamist, Git diff'i, GitHub API integratsiooni, andmebaasi ega keerukat kasutajahaldusliidest.
