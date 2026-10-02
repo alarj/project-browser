@@ -77,7 +77,8 @@ Git status'es eristatakse vähemalt olekuid `modified`, `added`, `deleted`, `ren
 - Igas projektis saab sirvida kataloogipuud.
 - Faili juures kuvatakse nimi, suurus, Git status ning kas fail on tracked või untracked.
 - Markdowni (`.md`) puhul on renderdatud vaade ja raw-tekstivaade.
-- Tekstivaates toetatakse vähemalt laiendeid `.txt`, `.py`, `.json`, `.yaml`, `.yml`, `.toml`, `.ini`, `.csv`, `.js`, `.ts`, `.html`, `.css`, `.sql` ja `.sh`.
+- JSON- (`.json`) ning XML-põhistel (`.xml`, `.xsl`, `.xsd`) failidel on lisaks raw-tekstivaatele vormindatud (pretty-print) vaade, kus struktuur on taandatud ja lihtsasti loetav.
+- Tekstivaates toetatakse vähemalt laiendeid `.txt`, `.py`, `.json`, `.yaml`, `.yml`, `.toml`, `.ini`, `.csv`, `.js`, `.ts`, `.html`, `.htm`, `.xml`, `.xsl`, `.xsd`, `.css`, `.sql` ja `.sh`.
 - PDF-failid avatakse brauseri native PDF-vaaturis.
 - Pildifailid `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp` ja `.svg` kuvatakse brauseris.
 - Tundmatute binaarfailide korral näidatakse ainult metadata infot; sisu ei renderdata tekstina.
