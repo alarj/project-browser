@@ -10,12 +10,12 @@ admins:
 
 projects:
   icm0032_ryhm33:
+    hidden_paths:
+      - "kohalikud-andmed/**"
+      - "*.local"
     allowed_users:
       - kasutaja1@miskimuudomeen.ee
 
   project-browser:
     allowed_users:
       - kasutaja2@miskimuudomeen.ee
-
-  avalik-projekt:
-    authentication_required: false
