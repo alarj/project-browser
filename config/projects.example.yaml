@@ -1,0 +1,21 @@
+# Project Browseri näidisõigused.
+# Kopeeri see fail kohalikuks failiks config/projects.yaml ja asenda
+# näidisaadressid tegelike kasutajatega. config/projects.yaml ei kuulu Git-reposse.
+
+defaults:
+  authentication_required: true
+
+admins:
+  - admin@miskidomeen.ee
+
+projects:
+  icm0032_ryhm33:
+    allowed_users:
+      - kasutaja1@miskimuudomeen.ee
+
+  project-browser:
+    allowed_users:
+      - kasutaja2@miskimuudomeen.ee
+
+  avalik-projekt:
+    authentication_required: false

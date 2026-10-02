@@ -1,0 +1,5 @@
+# Kohalikud saladused ja õiguste konfiguratsioon
+.env
+.env.*
+!.env.example
+config/projects.yaml

@@ -105,11 +105,12 @@ Kõik kasutajalt tulevad teed normaliseeritakse ja kontrollitakse. Path traversa
 - Google'i ID-tokeni ehtsust ja selle audience'i kontrollitakse igal sisselogimisel.
 - `.env.example` sisaldab vähemalt võtmeid `GOOGLE_CLIENT_ID`, `SESSION_SECRET` ja `SESSION_COOKIE_NAME`.
 
-## 11. Projektipõhine autoriseerimine
+## 11. Projektipõhine autoriseerimine MVP-s
 
-- ACL on esimeses versioonis failipõhine, näiteks `config/projects.yaml`.
+- ACL on esimeses versioonis failipõhine: `config/projects.yaml` on lokaalne, Gitist välja jäetud konfiguratsioonifail.
+- Git-repos on ainult isikuandmeteta näidisfail `config/projects.example.yaml`.
 - Vaikimisi on autentimine nõutud ning seadistamata uus repo on tavakasutajale nähtamatu.
-- Admin näeb kõiki projekte. Esialgne admin on `alar.joeste@gmail.com`.
+- Admin näeb kõiki projekte. Tegelikud adminide ja kasutajate e-posti aadressid paiknevad ainult lokaalses ACL-failis, mitte Git-repos.
 - Tavakasutaja näeb ainult projekte, mille `allowed_users` nimekirjas on tema Google'i e-posti aadress.
 - Projekt võib olla avalik, kui `authentication_required: false`; praegu ei ole ükski projekt avalik.
 - Autoriseerimist kontrollitakse igal projektiga seotud päringul, sealhulgas käsitsi sisestatud projekti- ja failiaadressil. Projekti peitmisest kasutajaliideses üksi ei piisa.
@@ -121,16 +122,29 @@ defaults:
   authentication_required: true
 
 admins:
-  - alar.joeste@gmail.com
+  - admin@miskidomeen.ee
 
 projects:
   icm0032_ryhm33:
-    allowed_users: []
+    allowed_users:
+      - kasutaja1@miskimuudomeen.ee
   project-browser:
-    allowed_users: []
+    allowed_users:
+      - kasutaja2@miskimuudomeen.ee
 ```
 
-## 12. Docker, võrk ja reverse proxy
+## 12. Tulevane kasutajahaldus ja Oracle'i integratsioon
+
+- YAML-põhine ACL on ainult MVP lahendus. Kasutajahaldusliidese lisamisel asendatakse see Project Browseri enda püsiva õiguste andmebaasiga.
+- Project Browser kasutab selleks olemasolevat Oracle Cloudi andmebaasi ja Oracle REST Data Servicesit (ORDS), kuid ei kasuta teiste rakenduste skeeme, tabeleid, pakette ega ORDS endpoint'e.
+- Oracle'is luuakse Project Browserile eraldi skeemid õiguste andmete ja ORDS API jaoks. Skeemide täpsed nimed määratakse juurutamisel.
+- FastAPI suhtleb Oracle'iga ainult ORDS-i HTTPS API kaudu; rakendus ei ava otsest Oracle'i draiveriühendust.
+- Project Browseri lokaalne `.env` sisaldab oma `ORDS_BASE_URL`, `ORDS_USERNAME` ja `ORDS_PASSWORD` väärtusi. Neid ei lisata Git-reposse ega jagata teiste rakendustega.
+- Püsiv õiguste mudel sisaldab vähemalt kasutajaid, rolle või adminiõigusi, automaatselt avastatud projekte ning kasutaja-projekti ligipääsu seoseid.
+- Õigused seotakse Google'i püsiva kasutajatunnusega `sub`; e-posti aadress on abiteave, mitte õiguste põhitunnus.
+- Päris kasutaja- ja adminandmed ei paikne Git-repos. Tulevases andmebaasimudelis hoitakse neid ainult Project Browseri eraldi skeemis.
+
+## 13. Docker, võrk ja reverse proxy
 
 - Compose'i teenus ei ava hostis uut porti; kasutatakse ainult `expose: 8000`, mitte `ports` seadistust.
 - Teenus ühendub olemasoleva välise Docker-võrguga `funo_net`.
@@ -140,7 +154,7 @@ projects:
 - Port 80, Let's Encrypti ACME challenge ja olemasolev HTTPS-redirect jäävad puutumata.
 - `fun_o`, `Double_Check_AI` ja Ollama olemasolevat käitamist ei muudeta rohkem, kui `/projects/` reverse proxy lisamiseks vältimatult vajalik.
 
-## 13. MVP piirid
+## 14. MVP piirid
 
 Esimene töötav versioon sisaldab Docker-konteinerit, FastAPI backend'i, automaatset repo-avastust, projekti ülevaadet, Git infot, failide sirvimist ja toetusvorme, tundlike failide kaitset, Google'i sisselogimist, projektipõhist ACL-i, adminiõigust, read-only failisüsteemi, `funo_net` integratsiooni ning `/projects/` reverse proxy tuge.
 
