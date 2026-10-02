@@ -89,10 +89,12 @@ Git status'es eristatakse vähemalt olekuid `modified`, `added`, `deleted`, `ren
 Rakendus ei kuva vaikimisi järgmisi faile ega katalooge:
 
 - `.git/`
-- `.env` ja `.env.*`
+- päris keskkonnafailid `.env` ja `.env.*`; erandina on kõik `*.env.example` näidisfailid kuvamiseks lubatud;
 - `*.key`, `*.pem`, `*.p12`, `*.pfx`
 - `id_rsa`, `id_ed25519`
 - `credentials*`, `secrets*`
+
+Failinime kontrollis rakendatakse `*.env.example` lubamisreeglit enne tundlike keskkonnafailide keelureeglit. Näidisfailid ei tohi sisaldada päris saladusi.
 
 Kõik kasutajalt tulevad teed normaliseeritakse ja kontrollitakse. Path traversal ei tohi võimaldada väljuda valitud projekti kataloogist ega lugeda muid hosti faile.
 
